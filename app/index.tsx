@@ -1,18 +1,41 @@
 import { router } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { ImageBackground, Image, Text, TextInput, View, TouchableOpacity, StyleSheet } from 'react-native';
+import * as Font from 'expo-font';
 
 const backgroundImage = require('../assets/images/logo1.png');
 // const shieldImage = require('../assets/images/logo3.png');
 const characterImage = require('../assets/images/logo4.png');
 const closeIconImage = require('../assets/images/logo5.png');
+const fetchFonts = () => {
+  return Font.loadAsync({
+    'poppins-regular': require('../assets/fonts/Poppins-Bold.ttf'),
+    'poppins-bold': require('../assets/fonts/Poppins-Regular.ttf'),
+    'poppins-extrabold': require('../assets/fonts/Poppins-ExtraBold.ttf'),
+    'poppins-italic': require('../assets/fonts/Poppins-Italic.ttf'),
+    'poppins-bolditalic': require('../assets/fonts/Poppins-BoldItalic.ttf'),
 
+  });
+};
 export default function LoginScreen() {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
   const handleLogin = () => {
     // Perform login logic here
     // If login is successful, navigate to the history screen
     router.push('/histroyScreen');
   };
+  React.useEffect(() => {
+    const loadFonts = async () => {
+        try {
+            await fetchFonts();
+            setFontsLoaded(true);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    loadFonts();
+}, []);
   return (
     <ImageBackground source={backgroundImage} style={styles.background} resizeMode="stretch">
       <View style={styles.overlay}>
@@ -79,6 +102,8 @@ const styles = StyleSheet.create({
     color: '#FFA500',
     fontSize: 16,
     marginRight: 30,
+    fontFamily: 'poppins-extrabold',
+
   },
   loginPrompt: {
     color: '#FFA500',
