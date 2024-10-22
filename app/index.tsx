@@ -23,7 +23,7 @@ export default function LoginScreen() {
   const handleLogin = () => {
     // Perform login logic here
     // If login is successful, navigate to the history screen
-    router.push('/histroyScreen');
+    router.push('/pointsScreen');
   };
   React.useEffect(() => {
     const loadFonts = async () => {

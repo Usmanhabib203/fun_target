@@ -6,8 +6,11 @@ import { View, Text, TouchableOpacity, StyleSheet, StatusBar } from 'react-nativ
 
 const WalletScreen = () => {
     const backhome=()=>{
-        router.back()
+        router.push('/pointsScreen')
     }
+    const handletrasction=()=>{
+      router.push('/histroyScreen')
+  }
   return (
     <>
           <StatusBar hidden />
@@ -25,7 +28,9 @@ const WalletScreen = () => {
       <View style={styles.balncetext}>
 
         <Text style={styles.balanceLabel}>Wallet Balance</Text>
+        <TouchableOpacity onPress={handletrasction}> 
         <Text style={styles.transactionHistory}>Transaction History ›</Text>
+        </TouchableOpacity>
         </View>
 
         <Text style={styles.balanceAmount}>₹ 0.00</Text>

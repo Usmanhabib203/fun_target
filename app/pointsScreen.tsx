@@ -13,6 +13,9 @@ const GameScreen = () => {
     const hanldeback =()=>{
         router.back()
       }
+      const hanldenext =()=>{
+        router.push('/spinScreen');
+    }
     return (
         <>
             <StatusBar hidden />
@@ -40,12 +43,15 @@ const GameScreen = () => {
                 <View style={styles.name}>
                     <Text style={styles.titletext}>Game</Text>
                 </View>
+                <TouchableOpacity onPress={hanldenext}>
+
                 <View style={styles.rightBox}>
                     <Text style={styles.rightBoxText}>FUN TARGET</Text>
                 </View>
-                <View style={styles.rightBox}>
+                </TouchableOpacity>
+                {/* <View style={styles.rightBox}>
                     <Text style={styles.rightBoxText}>TARGET</Text>
-                </View>
+                </View> */}
                 <View style={styles.centerContent}>
                     {/* Left Side - Settings */}
                     <View style={styles.leftIconSection}>
@@ -266,7 +272,7 @@ const styles = StyleSheet.create({
     },
     rightBox: {
         position: 'absolute',
-        top: 60,
+        top: 20,
         right: 50,
         justifyContent: 'center',
         alignItems: 'center',

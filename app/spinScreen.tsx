@@ -1,14 +1,18 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, SafeAreaView, Image, StatusBar } from 'react-native';
 const backgroundImage = require('../assets/images/gamelogo.png');
 // const wheelImage = require('../assets/images/wheel.png');
 
 const CasinoGame = () => {
+  const handlewithdraw = () => {
+    router.push('/walletScreen');
+  }
   return (
     <>
       <StatusBar hidden />
       <SafeAreaView style={styles.container}>
-        <ImageBackground 
+        <ImageBackground
           source={backgroundImage}
           style={styles.backgroundImage}
           resizeMode="cover"
@@ -47,80 +51,96 @@ const CasinoGame = () => {
             <Image source={wheelImage} style={styles.wheelImage} />
           </View> */}
 
-          <View style={styles.betButtonsRow}>
-            <View style={styles.betButtonsContainer}>
-              <TouchableOpacity style={[styles.betButton, styles.greenButton]}>
-                <Text style={styles.betButtonText}>1</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.betButton, styles.yellowButton]}>
-                <Text style={styles.betButtonText}>5</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.betButton, styles.purpleButton]}>
-                <Text style={styles.betButtonText}>10</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.betButton, styles.redButton]}>
-                <Text style={styles.betButtonText}>50</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.betButtonsContainer}>
-              <TouchableOpacity style={[styles.betButton, styles.redButton]}>
-                <Text style={styles.betButtonText}>100</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.betButton, styles.purpleButton]}>
-                <Text style={styles.betButtonText}>500</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.betButton, styles.yellowButton]}>
-                <Text style={styles.betButtonText}>1000</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.betButton, styles.greenButton]}>
-                <Text style={styles.betButtonText}>5000</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+<View style={styles.betButtonsRow}>
+  <View style={styles.betButtonsContainer}>
+    {[1, 5, 10, 50].map((bet) => (
+      <TouchableOpacity 
+        key={bet}
+        style={[styles.betButton, getBetButtonStyle(bet)]}
+        onPress={() => console.log(`Bet ${bet} placed`)}
+      >
+        <Text style={styles.betButtonText}>{bet}</Text>
+      </TouchableOpacity>
+    ))}
+  </View>
+  
+  <View style={styles.betButtonsContainer}>
+    {[100, 500, 1000, 5000].map((bet) => (
+      <TouchableOpacity 
+        key={bet}
+        style={[styles.betButton, getBetButtonStyle(bet)]}
+        onPress={() => console.log(`Bet ${bet} placed`)}
+      >
+        <Text style={styles.betButtonText}>{bet}</Text>
+      </TouchableOpacity>
+    ))}
+  </View>
+</View>
 
-          <View style={styles.actionButtonsContainer}>
-            <TouchableOpacity style={styles.actionButton}>
-              <Text style={styles.actionButtonText}>Take</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton}>
-              <Text style={styles.actionButtonText}>Cancel Bet</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton}>
-              <Text style={styles.actionButtonText}>Check Specific Bet</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton}>
-              <Text style={styles.actionButtonText}>Bet OK</Text>
-            </TouchableOpacity>
-          </View>
+
+<View style={styles.actionButtonsContainer}>
+  {["Take", "Cancel Bet", "Check Specific Bet", "Bet OK"].map((action) => (
+    <TouchableOpacity 
+      key={action} 
+      style={styles.actionButton}
+      onPress={() => console.log(`Action: ${action} pressed`)}
+    >
+      <Text style={styles.actionButtonText}>{action}</Text>
+    </TouchableOpacity>
+  ))}
+</View>
+
 
           <View style={styles.numberButtonsContainer}>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
               <View key={num} style={styles.numberButtonWrapper}>
                 <View style={styles.numberBox}></View>
-                <TouchableOpacity style={styles.numberButton}>
+                <TouchableOpacity
+                  style={styles.numberButton}
+                  onPress={() => console.log(`Button ${num} pressed`)}
+                >
                   <Text style={styles.numberButtonText}>{num}</Text>
                 </TouchableOpacity>
               </View>
             ))}
           </View>
 
+
           <View style={styles.footer}>
-          <TouchableOpacity style={styles.exitButton}>
-            <Text style={styles.exitButtonText}>0</Text>
-          </TouchableOpacity>
-            <View style={{backgroundColor:"#ffd700" ,padding:4, borderRadius:15, paddingHorizontal:20,}}>
-            <Text style={styles.footerText}>Please Bet to Start Game . Minimum Bet=1</Text>
-            </View>
             <TouchableOpacity style={styles.exitButton}>
-            <Text style={styles.exitButtonText}>Exit</Text>
-          </TouchableOpacity>
+              <Text style={styles.exitButtonText}>0</Text>
+            </TouchableOpacity>
+            <View style={{ backgroundColor: "#ffd700", padding: 4, borderRadius: 15, paddingHorizontal: 20, }}>
+              <Text style={styles.footerText}>Please Bet to Start Game . Minimum Bet=1</Text>
+            </View>
+            <TouchableOpacity style={styles.exitButton} onPress={handlewithdraw}>
+              <Text style={styles.exitButtonText}>Exit</Text>
+            </TouchableOpacity>
           </View>
 
-         
+
         </ImageBackground>
       </SafeAreaView>
     </>
   );
+};
+const getBetButtonStyle = (bet: number) => {
+  switch (bet) {
+    case 1:
+    case 5000:
+      return styles.greenButton;
+    case 5:
+    case 1000:
+      return styles.yellowButton;
+    case 10:
+    case 500:
+      return styles.purpleButton;
+    case 50:
+    case 100:
+      return styles.redButton;
+    default:
+      return {};
+  }
 };
 
 const styles = StyleSheet.create({
@@ -244,12 +264,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(165, 42, 42, 0.7)',
     borderRadius: 20,
     padding: 10,
-    marginTop:8,
+    marginTop: 8,
   },
   betButton: {
     paddingHorizontal: 10,
     borderRadius: 20,
-    padding:5,
+    padding: 5,
     marginHorizontal: 5,
   },
   betButtonText: {
@@ -293,7 +313,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 10,
     marginTop: 10,
-    borderRadius:5
+    borderRadius: 5
   },
   numberButtonWrapper: {
     alignItems: 'center',
@@ -303,7 +323,7 @@ const styles = StyleSheet.create({
     height: 20,
     backgroundColor: '#ece5a7',
     marginBottom: 5,
-    borderRadius:40,
+    borderRadius: 40,
   },
   numberButton: {
     backgroundColor: '#ff0000',
@@ -325,8 +345,8 @@ const styles = StyleSheet.create({
   footer: {
     alignItems: 'center',
     marginTop: 5,
-    flexDirection:'row',
-    justifyContent:'space-between'
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   footerText: {
     color: 'black',
@@ -344,7 +364,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderWidth: 2,
     borderColor: '#ffd700',
-    paddingHorizontal:15,
+    paddingHorizontal: 15,
   },
   exitButtonText: {
     color: 'white',

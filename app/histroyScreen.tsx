@@ -43,15 +43,15 @@ const HistoryScreen = () => {
               <Text style={styles.filterText}>Deposit</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.filterButton}>
-              <Text style={styles.filterText} onPress={handleWithdraw}>With Draw</Text>
+              <Text style={styles.filterText} >With Draw</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.navigationButtons}>
             <TouchableOpacity style={styles.navButton}>
-              <Text style={styles.navButtonText} onPress={handlePreview}>Preview</Text>
+              <Text style={styles.navButtonText}>Preview</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.navButton}>
-              <Text style={styles.navButtonText} onPress={handleNext}>Next</Text>
+              <Text style={styles.navButtonText} >Next</Text>
             </TouchableOpacity>
           </View>
         </View>
